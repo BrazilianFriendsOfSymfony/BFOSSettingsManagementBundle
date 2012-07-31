@@ -1,0 +1,39 @@
+bfos:
+    settings:
+        list:
+            title: "Settings"
+        form:
+            name.label: "Name"
+            type.label: "Type"
+            value.label: "Value"
+            granted_editing_for.label: "Granted editing for"
+            text_template: " Text"
+            html_template: "HTML"
+        field:
+            name.label:      "Name"
+            value.label:     "Value"
+            type.label:      "Type"
+            granted_editing_for.label: "Granted editing for"
+            created_at.label:   "Created at"
+            updated_at.label:   "Updated at"
+            actions.label:      "Updated at"
+        button:
+            new.label: "New Setting"
+            update.label: "Update"
+            delete.label: "Delete"
+            save.label: "Save"
+            save_and_add.label: "Save and add"
+        link:
+            go_to_list.label: "Go to list"
+            show.label: "Details"
+            edit.label: "Edit"
+        messages:
+            alert:
+                empty_entity: "No setting was found."
+                js_error: "Something is wrong."
+        new:
+            title: "New Setting"
+        edit:
+            title: "Editing Setting"
+        show:
+            title: "Details Setting"

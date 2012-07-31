@@ -4,17 +4,21 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="bfos_settings_management.example.class">BFOS\SettingsManagementBundle\Example</parameter>
+        <parameter key="bfos_setting_management.twig_extension.class">BFOS\SettingsManagementBundle\Twig\TwigExtension</parameter>
+        <parameter key="bfos_setting_management.setting_manager.class">BFOS\SettingsManagementBundle\Manager\ManagerSettings</parameter>
     </parameters>
 
     <services>
-        <service id="bfos_settings_management.example" class="%bfos_settings_management.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="bfos_setting_management.twig_extension" class="%bfos_setting_management.twig_extension.class%">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension" />
         </service>
+
+        <service id="bfos_setting_management.setting_manager" class="%bfos_setting_management.setting_manager.class%">
+            <argument type="service" id="service_container" />
+        </service>
+
     </services>
-    -->
+
 </container>

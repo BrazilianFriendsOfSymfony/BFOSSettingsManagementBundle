@@ -1,0 +1,45 @@
+bfos:
+    settings:
+        list:
+            title: "Configurações"
+        form:
+            name.label: "Nome"
+            type.label: "Tipo"
+            value.label: "Valor"
+            granted_editing_for.label: "Edição concedida para"
+            text_template.label: " Texto"
+            html_template.label: "HTML"
+        field:
+            name.label:     "Nome"
+            value.label:    "Valor"
+            type.label:     "Tipo"
+            granted_editing_for.label: "Edição concedida para"
+            created_at.label:   "Creado em"
+            updated_at.label:   "Atualizado em"
+            actions.label:      "Ações"
+        button:
+            new.label: "Nova Configuração"
+            update.label: "Atualizar"
+            delete.label: "Apagar"
+            save.label: "Salvar"
+            save_and_add.label: "Salvar e adicionar outro"
+        link:
+            go_to_list.label: "Voltar para lista"
+            show.label: "Detalhes"
+            edit.label: "Editar"
+        messages:
+            alert:
+                empty_entity: "Nenhum configuração foi encontrado."
+                js_error: "Ocorreu um erro."
+        new:
+            title: "Nova Configuração"
+        edit:
+            title: "Editando Configuração"
+        show:
+            title: "Detalhes da Configuração"
+
+Record was created successfully: O registro foi criado com sucesso.
+Record was updated successfully: O registro foi atualizado com sucesso.
+Record was removed successfully: O registro foi removido com sucesso.
+Unable to find Setting entity: Nào foi encontrada nenhuma entidade de configuração.
+Invalid Request: Requisição inválida.

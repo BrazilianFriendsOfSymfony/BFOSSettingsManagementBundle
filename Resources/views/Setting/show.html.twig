@@ -1,0 +1,77 @@
+<div class="page-header-setting">
+    <h2 id="h2-title-setting">{{ "bfos.settings.show.title"|trans }}</h2>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="js_go_to_list btn" href="{{ path('bfos_settings') }}">
+                <i class="icon-arrow-left"></i> {{ "bfos.settings.link.go_to_list.label"|trans }}
+            </a>
+        </div>
+        <div class="btn-group">
+            <a class="js_edit btn" href="{{ url('bfos_settings_edit', { 'id': entity.id }) }}">
+                <i class="icon-edit"></i> {{ "bfos.settings.link.edit.label"|trans }}
+            </a>
+        </div>
+        <div class="btn-group setting">
+            <form action="{{ path('bfos_settings_delete', { 'id': entity.id }) }}" method="post" class="js_delete_form" id="form-delete-setting-show">
+                {{ form_widget(delete_form) }}
+                <button type="submit" class="btn btn-danger js_delete"><i class="icon-trash icon-white"></i> {{ "bfos.settings.button.delete.label"|trans }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th>{{ "bfos.settings.field.name.label"|trans }}</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>{{ "bfos.settings.field.value.label"|trans }}</th>
+            <td>
+                {% for value in entity.value %}
+                    - {{ value }}<br />
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>{{ "bfos.settings.field.type.label"|trans }}</th>
+            <td>{{ entity.type }}</td>
+        </tr>
+        <tr>
+            <th>{{ "bfos.settings.field.granted_editing_for.label"|trans }}</th>
+            <td>
+                {% for role in entity.grantededitingfor %}
+                    - {{ role }}<br />
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>{{ "bfos.settings.field.created_at.label"|trans }}</th>
+            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{"bfos.settings.field.updated_at.label"|trans }}</th>
+            <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<style type="text/css">
+    #form-delete-setting-show {
+        width: 90px;
+        margin: 0 auto;
+    }
+    #h2-title-setting {
+        float: left;
+        width: 500px;
+    }
+    #wrapper-header-setting-show {
+        width: 100%;
+    }
+    .setting {
+        margin-top: -13px;
+    }
+</style>
+
+

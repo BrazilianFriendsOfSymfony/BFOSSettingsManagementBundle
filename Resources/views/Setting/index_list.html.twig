@@ -1,0 +1,26 @@
+{% for entity in entities %}
+    <tr>
+        <td><a class="js_show" href="{{ path('bfos_settings_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+        <td>
+            {% if entity.type == 'text' %}{% if entity.value %}{{ entity.value.value }} {% endif %}{% endif %}
+            {% if entity.type == 'email_template' %}{% if entity.value %}{{ entity.value.text_template }} {% endif %}{% endif %}
+        </td>
+        <td>{{ entity.type }}</td>
+        <td>
+            {% for role in entity.grantededitingfor %}
+                {{ role }} <br />
+            {%  endfor %}
+        </td>
+        <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
+        <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif%}</td>
+        <td>
+            <a href="{{ url('bfos_settings_show', { 'id': entity.id }) }}" class="js_show">
+                <i class="icon-info-sign"></i> {{ "bfos.settings.link.show.label"|trans }}
+            </a>
+            <a href="{{ url('bfos_settings_edit', { 'id': entity.id }) }}" class="js_edit">
+                <i class="icon-edit"></i> {{ "bfos.settings.link.edit.label"|trans }}
+            </a>
+        </td>
+    </tr>
+{% endfor %}
+

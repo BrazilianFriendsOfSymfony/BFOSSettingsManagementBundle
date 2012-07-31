@@ -1,0 +1,75 @@
+<div class="page-header-setting">
+<h2 class="h2-title-setting">{{ "bfos.settings.edit.title"|trans }}</h2>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn js_go_to_list" href="{{ path('bfos_settings') }}">
+                <i class="icon-arrow-left"></i> {{ "bfos.settings.link.go_to_list.label"|trans }}
+            </a>
+        </div>
+        <div class="btn-group">
+            <form action="{{ path('bfos_settings_delete', { 'id': entity.id }) }}" method="post" class="js_delete_form">
+                {{ form_widget(delete_form) }}
+                <button type="submit" class="btn btn-danger js_delete"><i class="icon-trash icon-white"></i> {{ "bfos.settings.button.delete.label"|trans }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<form class="form-horizontal js_update_form" action="{{ path('bfos_settings_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+    <div class="row mb-20">
+        <div class="span3 mt-10">
+            <label class=" required duocms-block-label dcb" for="{{ edit_form.granted_editing_for.vars.id }}"> {{ "bfos.settings.form.granted_editing_for.label"|trans }}</label>
+            {{ form_widget(edit_form.granted_editing_for) }}
+            {{ form_errors(edit_form.granted_editing_for) }}
+        </div>
+        <div class="span9" style="margin-top: 30px;">
+            <label class=" required duocms-block-label dcb" for="{{ edit_form.name.vars.id }}"> {{ "bfos.settings.form.name.label"|trans }}</label>
+            {{ form_widget(edit_form.name, { 'attr': { 'class': 'span9' }}) }}
+            {{ form_errors(edit_form.name) }}
+        </div>
+    </div>
+
+    {% if entity.type != 'email_template' %}
+    <div class="row mb-20">
+        <div class="span6">
+            <label class=" required duocms-block-label dcb" for="{{ edit_form.value.vars.id }}"> {{ "bfos.settings.form.value.label"|trans }}</label>
+            {{ form_widget(edit_form.value, { 'attr': { 'class': 'span6'}}) }}
+            {{ form_errors(edit_form.value) }}
+        </div>
+    </div>
+    {% else %}
+        <div class="row mb-20">
+            <div class="span6">
+                <label class=" required duocms-block-label dcb" for="{{ edit_form.html_template.vars.id }}"> {{ "bfos.settings.form.html_template.label"|trans }}</label>
+                {{ form_widget(edit_form.html_template, { 'attr': {'class': 'span6'}}) }}
+                {{ form_errors(edit_form.html_template) }}
+            </div>
+            <div class="span6">
+                <label class=" required duocms-block-label dcb" for="{{ edit_form.text_template.vars.id }}"> {{ "bfos.settings.form.text_template.label"|trans }}</label>
+                {{ form_widget(edit_form.text_template, { 'attr': {'class': 'span6'}}) }}
+                {{ form_errors(edit_form.text_template) }}
+            </div>
+        </div>
+    {% endif  %}
+    {{ form_rest(edit_form)}}
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary js_update">{{ "bfos.settings.button.update.label"|trans }}</button>
+    </div>
+</form>
+
+<style type="text/css">
+    #bfos_settingsmanagementbundle_setting_type_text_template,
+    #bfos_settingsmanagementbundle_setting_type_html_template {
+        /*width: 620px;*/
+        max-width: 560px;
+        min-width: 500px;
+        height: 180px;
+        max-height: 700px;
+        min-height: 20px;
+    }
+    .page-header-setting h2 {
+        float: left;
+    }
+    </style>
