@@ -3,7 +3,7 @@
 namespace BFOS\SettingsManagementBundle\Manager;
 
 use BFOS\SettingsManagementBundle\Entity\Setting;
-use BFOS\SettingsManagementBundle\Entity\SettingRepository;
+use Doctrine\ORM\EntityRepository;
 
 class SettingsManager
 {
@@ -61,7 +61,7 @@ class SettingsManager
          */
         $em = $this->container->get('doctrine')->getEntityManager();
         /**
-         * @var SettingRepository $rsetting
+         * @var EntityRepository $rsetting
          */
         $rsetting = $em->getRepository('BFOSSettingsManagementBundle:Setting');
 
@@ -69,7 +69,7 @@ class SettingsManager
             /**
              * @var Setting $esetting
              */
-            $esetting = $rsetting->getByName($name);
+            $esetting = $rsetting->findOneBy(array('name'=>$name));
             if(!$esetting){
                 return false;
             }
@@ -107,7 +107,7 @@ class SettingsManager
          */
         $em = $this->container->get('doctrine')->getEntityManager();
         /**
-         * @var SettingRepository $rsetting
+         * @var EntityRepository $rsetting
          */
         $rsetting = $em->getRepository('BFOSSettingsManagementBundle:Setting');
 
@@ -115,7 +115,7 @@ class SettingsManager
             /**
              * @var Setting $esetting
              */
-            $esetting = $rsetting->getByName($name);
+            $esetting = $rsetting->findOneBy(array('name'=>$name));
             if(!$esetting){
                 return false;
             }
@@ -129,26 +129,6 @@ class SettingsManager
         return true;
     }
 
-    /**
-     * Get Setting entities by type.
-     *
-     * @param string $type
-     *
-     * @return array
-     */
-    public function getSettingByType($type)
-    {
-        /**
-         * @var \Doctrine\ORM\EntityManager $em
-         */
-        $em = $this->container->get('doctrine')->getEntityManager();
-        /**
-         * @var SettingRepository $rsetting
-         */
-        $rsetting = $em->getRepository('BFOSSettingsManagementBundle:Setting');
-
-        return $rsetting->getByType($type);
-    }
 
     /**
      * Get Setting entities by name.
@@ -164,36 +144,37 @@ class SettingsManager
          */
         $em = $this->container->get('doctrine')->getEntityManager();
         /**
-         * @var SettingRepository $rsetting
+         * @var EntityRepository $rsetting
          */
         $rsetting = $em->getRepository('BFOSSettingsManagementBundle:Setting');
 
-        return $rsetting->getByName($name);
+        return $rsetting->findOneBy(array('name'=>$name));
     }
 
     /**
      * Get Setting value by name.
      *
      * @param string $name
+     * @param null|mixed $default
      *
      * @return array
      */
-    public function getValue($name)
+    public function getValue($name, $default = null)
     {
         /**
          * @var \Doctrine\ORM\EntityManager $em
          */
         $em = $this->container->get('doctrine')->getEntityManager();
         /**
-         * @var SettingRepository $rsetting
+         * @var EntityRepository $rsetting
          */
         $rsetting = $em->getRepository('BFOSSettingsManagementBundle:Setting');
         /**
          * @var Setting $entity
          */
-        $entity = $rsetting->getValueByNameAndType($name, $type);
+        $entity = $rsetting->findOneBy(array('name'=>$name));
 
-        return $entity->getValue();
+        return $entity->getValue()!==null?$entity->getValue():$default;
     }
 
     /**
