@@ -27,3 +27,15 @@ example below.
 {% block content %}
 {{ bfos_settings_management() }}
 {% endblock content %}
+
+
+USING THE SETTINGS
+==================
+
+Rendering Twig template from strings
+------------------------------------
+
+When storing email templates in database, you'll need a way to render Twig templates from strings. The
+following examples shows you how.
+
+$this->get('bfos_setting_management.twigstring')->render($this->get('bfos_setting_management.setting_manager')->getValue('checkout_email'), array('name' => 'Fabien'));

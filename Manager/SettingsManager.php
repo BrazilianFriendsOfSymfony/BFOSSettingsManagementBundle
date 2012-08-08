@@ -174,7 +174,15 @@ class SettingsManager
          */
         $entity = $rsetting->findOneBy(array('name'=>$name));
 
-        return $entity->getValue()!==null?$entity->getValue():$default;
+        if($entity->getValue()!==null) {
+            $v = $entity->getValue();
+            if($entity->getType()=='text'){
+                return $v['value'];
+            }
+            return $v;
+        } else {
+            return $default;
+        }
     }
 
     /**
