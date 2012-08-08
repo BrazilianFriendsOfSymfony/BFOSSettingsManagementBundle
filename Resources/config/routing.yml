@@ -1,0 +1,4 @@
+BFOSSettingsManagementBundle:
+    resource: "@BFOSSettingsManagementBundle/Controller/"
+    type:     annotation
+    prefix:   /

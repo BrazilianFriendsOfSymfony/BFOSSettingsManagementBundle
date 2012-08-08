@@ -208,19 +208,4 @@ class ManagerSettings
             'email_template' => 'E-mail Template'
         );
     }
-
-    /**
-     * Get the roles options
-     *
-     * @return array
-     */
-    public function getRolesOptions()
-    {
-        return array(
-            'ROLE_USER'             =>'Usuário',
-            'ROLE_ADMIN'            =>'Admin',
-            'ROLE_DUOCMS_EDITOR'    =>'Editor CMS',
-            'ROLE_DUOCMS_ADMIN'     =>'Admin CMS'
-        );
-    }
 }

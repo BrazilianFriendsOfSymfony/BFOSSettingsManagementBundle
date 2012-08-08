@@ -3,6 +3,7 @@
 namespace BFOS\SettingsManagementBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use BFOS\SettingsManagementBundle\Form\SettingForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,7 +22,7 @@ class SettingController extends Controller
     /**
      * Lists all Setting entities.
      *
-     * @Route("/", name="bfos_settings")
+     * @Route("/", name="bfos_settings", requirements={"_method": "get"})
      * @Template()
      */
     public function indexAction()
@@ -35,16 +36,20 @@ class SettingController extends Controller
 
         $entities = $em->getRepository($entity_name)->findAll();
 
-        return array(
+        $view_vars = array(
             'entities' => $entities,
         );
+        if($this->getRequest()->query->has('nojs') && $this->getRequest()->query->get('nojs')){
+            return $this->render("BFOSSettingsManagementBundle:Setting:index_table.html.twig", $view_vars);
+        }
+        return $view_vars;
 
     }
 
     /**
      * Finds and displays a Setting entity.
      *
-     * @Route("/{id}/show", name="bfos_settings_show")
+     * @Route("/{id}/show", name="bfos_settings_show", requirements={"_method": "get"})
      * @Template()
      */
     public function showAction($id)
@@ -72,65 +77,9 @@ class SettingController extends Controller
     }
 
     /**
-     * Displays a form to create a new Setting entity.
-     *
-     * @Route("/new", name="bfos_settings_new")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Setting();
-        $form   = $this->createForm(new SettingFormType($this->container), $entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        );
-    }
-
-    /**
-     * Creates a new Setting entity.
-     *
-     * @Route("/create", name="bfos_settings_create")
-     * @Method("post")
-     * @Template("BFOSSettingsManagementBundle:Setting:new.html.twig")
-     */
-    public function createAction()
-    {
-        $request = $this->getRequest();
-
-        if(!$request->isXmlHttpRequest()) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Invalid Request'));
-        }
-        $entity  = new Setting();
-        $form    = $this->createForm(new SettingFormType($this->container), $entity);
-        $form->bindRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
-            $em->flush();
-
-            $this->get('session')->setFlash('notice', $this->get('translator')->trans('Record was created successfully'));
-
-            $m = $request->get('_save_and_add');
-            if(!is_null($m)) {
-                return $this->redirect($this->generateUrl('bfos_settings_new'));
-            } else {
-                return $this->redirect($this->generateUrl('bfos_settings'));
-            }
-        }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        );
-    }
-
-    /**
      * Displays a form to edit an existing Setting entity.
      *
-     * @Route("/{id}/edit", name="bfos_settings_edit")
+     * @Route("/{id}/edit", name="bfos_settings_edit", requirements={"_method": "get"})
      * @Template()
      */
     public function editAction($id)
@@ -143,7 +92,7 @@ class SettingController extends Controller
             throw $this->createNotFoundException($this->get('translator')->trans('Unable to find Setting entity'));
         }
 
-        $setting_form = new \BFOS\SettingsManagementBundle\Form\SettingForm();
+        $setting_form = new SettingForm();
         $setting_form->setSetting($entity);
         $editForm = $this->createForm(new SettingFormType($this->container), $setting_form);
         $deleteForm = $this->createDeleteForm($id);
@@ -164,6 +113,10 @@ class SettingController extends Controller
      */
     public function updateAction($id)
     {
+        $request = $this->getRequest();
+        if(!$request->isXmlHttpRequest()){
+            throw $this->createNotFoundException('Invalid request');
+        }
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('BFOSSettingsManagementBundle:Setting')->find($id);
@@ -173,14 +126,12 @@ class SettingController extends Controller
             throw $this->createNotFoundException('Unable to find Setting entity.');
         }
 
-        $setting_form = new \BFOS\SettingsManagementBundle\Form\SettingForm();
+        $setting_form = new SettingForm();
         $setting_form->setSetting($entity);
         $editForm   = $this->createForm(new SettingFormType($this->container), $setting_form);
-        $deleteForm = $this->createDeleteForm($id);
 
-        $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->bind($request);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -198,7 +149,7 @@ class SettingController extends Controller
 
             $this->get('session')->setFlash('notice', $this->get('translator')->trans('Record was updated successfully'));
 
-            return new Response($this->renderView('BFOSSettingsManagementBundle:Setting:index.html.twig', $view_vars));
+            return $this->render('BFOSSettingsManagementBundle:Setting:index_table.html.twig', $view_vars);
         }
 
         return array(

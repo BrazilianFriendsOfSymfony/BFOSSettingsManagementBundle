@@ -1,0 +1,31 @@
+<div id="bfos_settings_list_wrapper">
+
+    {% include 'BFOSSettingsManagementBundle:Setting:flash.html.twig' %}
+
+    <div class="page-header-setting">
+        <h2>{{"bfos.settings.list.title"|trans}}</h2>
+    </div>
+
+    {%  if entities|length > 0 %}
+    <table id="table_list" class="table table-striped">
+        <thead>
+        <tr>
+            <th>{{"bfos.settings.field.name.label"|trans}}</th>
+            <th>{{"bfos.settings.field.value.label"|trans}}</th>
+            <th>{{"bfos.settings.field.type.label"|trans}}</th>
+            <th>{{"bfos.settings.field.granted_editing_for.label"|trans}}</th>
+            <th>{{"bfos.settings.field.created_at.label"|trans}}</th>
+            <th>{{"bfos.settings.field.updated_at.label"|trans}}</th>
+            <th>{{"bfos.settings.field.actions.label"|trans}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% include "BFOSSettingsManagementBundle:Setting:index_list.html.twig" %}
+
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info">{{ "bfos.settings.messages.alert.empty_entity"|trans }}</div>
+    {% endif %}
+
+</div>

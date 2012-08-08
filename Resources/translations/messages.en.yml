@@ -7,8 +7,8 @@ bfos:
             type.label: "Type"
             value.label: "Value"
             granted_editing_for.label: "Granted editing for"
-            text_template: " Text"
-            html_template: "HTML"
+            text_template.label: " Text"
+            html_template.label: "HTML"
         field:
             name.label:      "Name"
             value.label:     "Value"

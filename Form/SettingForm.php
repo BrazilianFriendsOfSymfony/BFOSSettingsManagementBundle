@@ -36,11 +36,6 @@ class SettingForm
     private $type;
 
     /**
-     * @var array $granted_editing_for
-     */
-    private $granted_editing_for;
-
-    /**
      * @var string $html_template
      */
     private $html_template;
@@ -50,21 +45,6 @@ class SettingForm
      */
     private $text_template;
 
-    /**
-     * @param array $granted_editing_for
-     */
-    public function setGrantedEditingFor($granted_editing_for)
-    {
-        $this->granted_editing_for = $granted_editing_for;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGrantedEditingFor()
-    {
-        return $this->granted_editing_for;
-    }
 
     /**
      * @param string $html_template
@@ -163,7 +143,6 @@ class SettingForm
     }
 
     public function updateSetting(){
-        $this->setting->setGrantedEditingFor($this->getGrantedEditingFor());
         $this->setting->setName($this->getName());
         $this->setting->setType($this->getType());
         if($this->getType()!='email_template'){
@@ -181,7 +160,6 @@ class SettingForm
         $this->setting = $setting;
 
         $this->setId($setting->getId());
-        $this->setGrantedEditingFor($setting->getGrantedEditingFor());
         $value = $setting->getValue();
         if($setting->getType()=='email_template' && !is_null($value) ){
             $this->setTextTemplate($value['text_template']);

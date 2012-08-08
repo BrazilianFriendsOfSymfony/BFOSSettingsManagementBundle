@@ -3,6 +3,7 @@
 namespace BFOS\SettingsManagementBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormBuilder;
 use BFOS\SettingsManagementBundle\Manager\ManagerSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,23 +17,8 @@ class SettingFormType extends AbstractType
         $this->container = $container;
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /**
-         * @var ManagerSettings $msetting
-         */
-        $msetting = $this->container->get('bfos_setting_management.setting_manager');
-
-        $builder
-            ->add('name')
-            ->add('value', 'textarea', array('required'=>false))
-            ->add('granted_editing_for', 'choice', array(
-                'choices' => $msetting->getRolesOptions(),
-                'multiple' => true,
-                'label' => 'Regras',
-                'required'=> false
-            ))
-        ;
 
         $subscriber = new SettingFormSubscriber($builder->getFormFactory(), $this->container);
         $builder->addEventSubscriber($subscriber);

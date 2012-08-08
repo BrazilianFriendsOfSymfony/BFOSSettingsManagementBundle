@@ -40,22 +40,14 @@ class SettingFormSubscriber implements EventSubscriberInterface
         if (null === $data) {
             return;
         }
-        /**
-         * @var \BFOS\SettingsManagementBundle\Manager\ManagerSettings $msetting
-         */
-        $msetting = $this->container->get('bfos_setting_management.setting_manager');
-        $choices = $msetting->getTypeOptions();
 
-        if (!$data->getId()) { // NEW
-            $form->add($this->factory->createNamed('choice', 'type', null, array('choices'=>$choices)));
-        }
             // check if the product object is not "new"
-        if ($data->getId()) {
-            if($data->getType() == 'email_template'){
-                $form->add($this->factory->createNamed('textarea', 'html_template'));
-                $form->add($this->factory->createNamed('textarea', 'text_template'));
-                $form->remove('value');
-            }
+        if($data->getType() == 'email_template'){
+            $form->add($this->factory->createNamed('html_template', 'textarea'));
+            $form->add($this->factory->createNamed('text_template', 'textarea'));
+        } else {
+            $form->add($this->factory->createNamed('value', 'textarea', null,  array('required'=>false)));
+
         }
     }
 }

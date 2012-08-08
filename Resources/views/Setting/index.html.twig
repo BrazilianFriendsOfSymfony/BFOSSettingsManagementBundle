@@ -1,33 +1,5 @@
-<div id="bfos_settings_list_wrapper">
-
-    {% include 'BFOSSettingsManagementBundle:Setting:flash.html.twig' %}
-
-    <div class="page-header-setting">
-        <h2>{{"bfos.settings.list.title"|trans}}</h2>
-    </div>
-
-    {%  if entities|length > 0 %}
-        <table id="table_list" class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{"bfos.settings.field.name.label"|trans}}</th>
-                <th>{{"bfos.settings.field.value.label"|trans}}</th>
-                <th>{{"bfos.settings.field.type.label"|trans}}</th>
-                <th>{{"bfos.settings.field.granted_editing_for.label"|trans}}</th>
-                <th>{{"bfos.settings.field.created_at.label"|trans}}</th>
-                <th>{{"bfos.settings.field.updated_at.label"|trans}}</th>
-                <th>{{"bfos.settings.field.actions.label"|trans}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% include "BFOSSettingsManagementBundle:Setting:index_list.html.twig" %}
-
-            </tbody>
-        </table>
-    {% else %}
-        <div class="alert alert-info">{{ "bfos.settings.messages.alert.empty_entity"|trans }}</div>
-    {% endif %}
-
+<div id="bfos_settings_content_wrapper">
+    {% include "BFOSSettingsManagementBundle:Setting:index_table.html.twig" %}
 </div>
 <script type="text/javascript">
 
@@ -35,7 +7,7 @@
         event.preventDefault();
         $.get($(anchor).attr('href'))
                 .success(function(data) {
-                    $('#bfos_settings_list_wrapper').html(data);
+                    $('#bfos_settings_content_wrapper').html(data);
                     bfos_settings_management_bind();
                 })
                 .error(function() {
@@ -46,12 +18,13 @@
 
     function bfos_settings_management_http_post_from_link(event, anchor, class_form) {
         event.preventDefault();
-        var form = $('#content_body_wrapper .'+class_form);
+        var form = $('#bfos_settings_content_wrapper .'+class_form);
         var url  = form.attr('action');
         var dados = form.serialize();
         $.post(url, dados)
                 .success(function(data, status, xhq) {
-                    $('#bfos_settings_list_wrapper').html(data);
+                    bfos_settings_management_unbind();
+                    $('#bfos_settings_content_wrapper').html(data);
                     bfos_settings_management_bind();
                 })
                 .error(function() {
@@ -62,27 +35,27 @@
     function bfos_settings_management_bind() {
 
         bfos_settings_management_unbind();
-        $('#bfos_settings_list_wrapper .js_new').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
-        $('#bfos_settings_list_wrapper .js_edit').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
-        $('#bfos_settings_list_wrapper .js_show').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
-        $('#bfos_settings_list_wrapper .js_go_to_list').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
+        $('#bfos_settings_content_wrapper .js_new').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
+        $('#bfos_settings_content_wrapper .js_edit').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
+        $('#bfos_settings_content_wrapper .js_show').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
+        $('#bfos_settings_content_wrapper .js_go_to_list').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
 
-        $('#bfos_settings_list_wrapper .js_create').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_create_form'); });
-        $('#bfos_settings_list_wrapper .js_update').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_update_form'); });
-        $('#bfos_settings_list_wrapper .js_delete').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_delete_form'); });
+        $('#bfos_settings_content_wrapper .js_create').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_create_form'); });
+        $('#bfos_settings_content_wrapper .js_update').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_update_form'); });
+        $('#bfos_settings_content_wrapper .js_delete').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_delete_form'); });
 
     }
 
     function bfos_settings_management_unbind() {
 
-        $('#bfos_settings_list_wrapper .js_new').unbind('click');
-        $('#bfos_settings_list_wrapper .js_edit').unbind('click');
-        $('#bfos_settings_list_wrapper .js_show').unbind('click');
-        $('#bfos_settings_list_wrapper .js_go_to_list').unbind('click');
+        $('#bfos_settings_content_wrapper .js_new').unbind('click');
+        $('#bfos_settings_content_wrapper .js_edit').unbind('click');
+        $('#bfos_settings_content_wrapper .js_show').unbind('click');
+        $('#bfos_settings_content_wrapper .js_go_to_list').unbind('click');
 
-        $('#bfos_settings_list_wrapper .js_create').unbind('click');
-        $('#bfos_settings_list_wrapper .js_update').unbind('click');
-        $('#bfos_settings_list_wrapper .js_delete').unbind('click');
+        $('#bfos_settings_content_wrapper .js_create').unbind('click');
+        $('#bfos_settings_content_wrapper .js_update').unbind('click');
+        $('#bfos_settings_content_wrapper .js_delete').unbind('click');
 
     }
 

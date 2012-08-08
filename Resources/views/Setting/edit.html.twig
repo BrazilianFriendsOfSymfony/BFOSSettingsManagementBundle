@@ -2,7 +2,7 @@
 <h2 class="h2-title-setting">{{ "bfos.settings.edit.title"|trans }}</h2>
     <div class="btn-toolbar">
         <div class="btn-group">
-            <a class="btn js_go_to_list" href="{{ path('bfos_settings') }}">
+            <a class="btn js_go_to_list" href="{{ path('bfos_settings', {'nojs':1}) }}">
                 <i class="icon-arrow-left"></i> {{ "bfos.settings.link.go_to_list.label"|trans }}
             </a>
         </div>
@@ -16,19 +16,6 @@
 </div>
 
 <form class="form-horizontal js_update_form" action="{{ path('bfos_settings_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-
-    <div class="row mb-20">
-        <div class="span3 mt-10">
-            <label class=" required duocms-block-label dcb" for="{{ edit_form.granted_editing_for.vars.id }}"> {{ "bfos.settings.form.granted_editing_for.label"|trans }}</label>
-            {{ form_widget(edit_form.granted_editing_for) }}
-            {{ form_errors(edit_form.granted_editing_for) }}
-        </div>
-        <div class="span9" style="margin-top: 30px;">
-            <label class=" required duocms-block-label dcb" for="{{ edit_form.name.vars.id }}"> {{ "bfos.settings.form.name.label"|trans }}</label>
-            {{ form_widget(edit_form.name, { 'attr': { 'class': 'span9' }}) }}
-            {{ form_errors(edit_form.name) }}
-        </div>
-    </div>
 
     {% if entity.type != 'email_template' %}
     <div class="row mb-20">
