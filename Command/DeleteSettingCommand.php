@@ -33,7 +33,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /**
-         * @var \BFOS\SettingsManagementBundle\Manager\ManagerSettings $msetting
+         * @var \BFOS\SettingsManagementBundle\Manager\SettingsManager $msetting
          */
         $msetting = $this->getContainer()->get('bfos_setting_management.setting_manager');
 

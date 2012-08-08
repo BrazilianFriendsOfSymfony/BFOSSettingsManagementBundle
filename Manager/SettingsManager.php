@@ -5,7 +5,7 @@ namespace BFOS\SettingsManagementBundle\Manager;
 use BFOS\SettingsManagementBundle\Entity\Setting;
 use BFOS\SettingsManagementBundle\Entity\SettingRepository;
 
-class ManagerSettings
+class SettingsManager
 {
     private $container;
 

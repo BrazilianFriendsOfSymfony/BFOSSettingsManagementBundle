@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="bfos_setting_management.twig_extension.class">BFOS\SettingsManagementBundle\Twig\TwigExtension</parameter>
-        <parameter key="bfos_setting_management.setting_manager.class">BFOS\SettingsManagementBundle\Manager\ManagerSettings</parameter>
+        <parameter key="bfos_setting_management.setting_manager.class">BFOS\SettingsManagementBundle\Manager\SettingsManager</parameter>
     </parameters>
 
     <services>

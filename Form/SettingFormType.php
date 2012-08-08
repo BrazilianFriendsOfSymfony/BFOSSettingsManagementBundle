@@ -5,7 +5,7 @@ namespace BFOS\SettingsManagementBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormBuilder;
-use BFOS\SettingsManagementBundle\Manager\ManagerSettings;
+use BFOS\SettingsManagementBundle\Manager\SettingsManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SettingFormType extends AbstractType
