@@ -46,6 +46,17 @@ class SettingController extends Controller
 
     }
 
+    private function grantedEditing(Setting $setting){
+
+        $granted = false;
+        foreach($setting->getGrantedEditingFor() as $role){
+            if($this->get('security.context')->isGranted($role)){
+                $granted = true;
+                break;
+            }
+        }
+        return $granted;
+    }
     /**
      * Finds and displays a Setting entity.
      *
@@ -62,10 +73,18 @@ class SettingController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
 
+        /**
+         * @var Setting $entity
+         */
         $entity = $em->getRepository('BFOSSettingsManagementBundle:Setting')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Unable to find Setting entity'));
+        }
+
+
+        if(!$this->grantedEditing($entity)){
+            return new Response('', 403);
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -90,6 +109,11 @@ class SettingController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Unable to find Setting entity'));
+        }
+
+
+        if(!$this->grantedEditing($entity)){
+            return new Response('', 403);
         }
 
         $setting_form = new SettingForm();
@@ -124,6 +148,10 @@ class SettingController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Setting entity.');
+        }
+
+        if(!$this->grantedEditing($entity)){
+            return new Response('', 403);
         }
 
         $setting_form = new SettingForm();
@@ -174,7 +202,7 @@ class SettingController extends Controller
         }
         $form = $this->createDeleteForm($id);
 
-        $form->bindRequest($request);
+        $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
@@ -182,6 +210,10 @@ class SettingController extends Controller
 
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Unable to find Setting entity'));
+            }
+
+            if(!$this->grantedEditing($entity)){
+                return new Response('', 403);
             }
 
             $em->remove($entity);
