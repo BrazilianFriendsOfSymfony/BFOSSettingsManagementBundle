@@ -1,6 +1,12 @@
 {% for entity in entities %}
     <tr>
-        <td><a class="js_show" href="{{ path('bfos_settings_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+        <td><a class="js_show" href="{{ path('bfos_settings_show', { 'id': entity.id }) }}">
+            {% if entity.label is not empty %}
+                {{ entity.label }}
+            {% else %}
+                {{ entity.name }}
+            {% endif %}
+        </a></td>
         <td>
             {% if entity.type == 'text' %}{% if entity.value %}{{ entity.value.value }} {% endif %}{% endif %}
             {% if entity.type == 'email_template' %}{% if entity.value %}{{ entity.value.text_template }} {% endif %}{% endif %}

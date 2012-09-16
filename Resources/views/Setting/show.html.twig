@@ -29,9 +29,7 @@
         <tr>
             <th>{{ "bfos.settings.field.value.label"|trans }}</th>
             <td>
-                {% for value in entity.value %}
-                    - {{ value }}<br />
-                {% endfor %}
+                {% include 'BFOSSettingsManagementBundle:Setting:value_' ~ entity.type ~ '.html.twig' with {'value':entity.value}  %}
             </td>
         </tr>
         <tr>

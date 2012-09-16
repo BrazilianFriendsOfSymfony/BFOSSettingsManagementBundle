@@ -16,7 +16,13 @@
 </div>
 
 <form class="form-horizontal js_update_form" action="{{ path('bfos_settings_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-
+    <div class="row mb-20">
+        {% if (entity.label is not empty) %}
+            {{ entity.label }} ({{ entity.name }})
+        {% else %}
+            {{ entity.name }}
+        {% endif %}
+    </div>
     {% if entity.type != 'email_template' %}
     <div class="row mb-20">
         <div class="span6">

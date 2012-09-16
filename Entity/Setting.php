@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * BFOS\SettingsManagementBundle\Entity\Setting
+ * BFOSSettingsManagementBundle:Setting
  *
  * @ORM\Table(name="bfos_settings",uniqueConstraints={@ORM\UniqueConstraint(name="name_unique_idx", columns={"name"})})
  * @ORM\Entity()
@@ -46,6 +47,20 @@ class Setting
      * @ORM\Column(name="type", type="string", length=150, nullable=true)
      */
     private $type;
+
+    /**
+     * @var string $label
+     *
+     * @ORM\Column(name="label", type="string", length=255, nullable=true)
+     */
+    private $label;
+
+    /**
+     * @var string $help
+     *
+     * @ORM\Column(name="help", type="text", nullable=true)
+     */
+    private $help;
 
     /**
      * @var array $granted_editing_for
@@ -222,4 +237,50 @@ class Setting
         return $this->granted_editing_for;
     }
 
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     * @return Setting
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string 
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set help
+     *
+     * @param string $help
+     * @return Setting
+     */
+    public function setHelp($help)
+    {
+        $this->help = $help;
+    
+        return $this;
+    }
+
+    /**
+     * Get help
+     *
+     * @return string 
+     */
+    public function getHelp()
+    {
+        return $this->help;
+    }
 }

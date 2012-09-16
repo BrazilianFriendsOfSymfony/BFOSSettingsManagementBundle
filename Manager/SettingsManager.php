@@ -7,6 +7,13 @@ use Doctrine\ORM\EntityRepository;
 
 class SettingsManager
 {
+    static public $allowedTypes = array(
+        'text',
+        'email_template',
+        'email_address',
+        'boolean'
+    );
+
     private $container;
 
     function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container)
@@ -24,13 +31,18 @@ class SettingsManager
      *
      * @return Setting
      */
-    public function createSetting($name, $type, $value = null, $granted_editing_for = null)
+    public function createSetting($name, $type = 'text', $value = null, $granted_editing_for = null, $label = null, $help = null)
     {
+        if(!in_array($type, self::$allowedTypes)){
+            throw new \Exception('Setting type is invalid');
+        }
 
         $em = $this->container->get('doctrine')->getEntityManager();
         $setting = new Setting();
         $setting->setName($name);
         $setting->setType($type);
+        $setting->setLabel($label);
+        $setting->setHelp($help);
         if($value) {
             $setting->setValue($value);
         }
@@ -54,8 +66,12 @@ class SettingsManager
      *
      * @return boolean
      */
-    public function updateSetting($name, $type = null, $value = null, $granted_editing_for = null)
+    public function updateSetting($name, $type = null, $value = null, $granted_editing_for = null, $label = null, $help = null)
     {
+        if(!in_array($type, self::$allowedTypes)){
+            throw new \Exception('Setting type is invalid');
+        }
+
         /**
          * @var \Doctrine\ORM\EntityManager $em
          */
@@ -86,6 +102,8 @@ class SettingsManager
         if($granted_editing_for) {
             $esetting->setGrantedEditingFor($granted_editing_for);
         }
+        $esetting->setLabel($label);
+        $esetting->setHelp($help);
 
         $em->persist($esetting);
         $em->flush();
