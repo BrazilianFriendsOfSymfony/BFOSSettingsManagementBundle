@@ -1,56 +1,39 @@
 <div class="page-header-setting">
 <h2 class="h2-title-setting">{{ "bfos.settings.edit.title"|trans }}</h2>
     <div class="btn-toolbar">
-        <div class="btn-group">
+        <div class="btn-group pull-right">
             <a class="btn js_go_to_list" href="{{ path('bfos_settings', {'nojs':1}) }}">
                 <i class="icon-arrow-left"></i> {{ "bfos.settings.link.go_to_list.label"|trans }}
             </a>
         </div>
-        <div class="btn-group">
-            <form action="{{ path('bfos_settings_delete', { 'id': entity.id }) }}" method="post" class="js_delete_form">
-                {{ form_widget(delete_form) }}
-                <button type="submit" class="btn btn-danger js_delete"><i class="icon-trash icon-white"></i> {{ "bfos.settings.button.delete.label"|trans }}</button>
-            </form>
-        </div>
     </div>
 </div>
-
+<h3 class="mb-20">
+    {% if (entity.label is not empty) %}
+    {{ entity.label }} ({{ entity.name }})
+{% else %}
+    {{ entity.name }}
+{% endif %}
+</h3>
+<p>
+    {% if entity.help is not empty %}
+<div class="row">
+    <div class="span7">
+        {{ entity.help|raw }}
+    </div>
+</div>
+{% endif %}
+</p>
+<p>
 <form class="form-horizontal js_update_form" action="{{ path('bfos_settings_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    <div class="row mb-20">
-        {% if (entity.label is not empty) %}
-            {{ entity.label }} ({{ entity.name }})
-        {% else %}
-            {{ entity.name }}
-        {% endif %}
-    </div>
-    {% if entity.type != 'email_template' %}
-    <div class="row mb-20">
-        <div class="span6">
-            <label class=" required duocms-block-label dcb" for="{{ edit_form.value.vars.id }}"> {{ "bfos.settings.form.value.label"|trans }}</label>
-            {{ form_widget(edit_form.value, { 'attr': { 'class': 'span6'}}) }}
-            {{ form_errors(edit_form.value) }}
-        </div>
-    </div>
-    {% else %}
-        <div class="row mb-20">
-            <div class="span6">
-                <label class=" required duocms-block-label dcb" for="{{ edit_form.html_template.vars.id }}"> {{ "bfos.settings.form.html_template.label"|trans }}</label>
-                {{ form_widget(edit_form.html_template, { 'attr': {'class': 'span6'}}) }}
-                {{ form_errors(edit_form.html_template) }}
-            </div>
-            <div class="span6">
-                <label class=" required duocms-block-label dcb" for="{{ edit_form.text_template.vars.id }}"> {{ "bfos.settings.form.text_template.label"|trans }}</label>
-                {{ form_widget(edit_form.text_template, { 'attr': {'class': 'span6'}}) }}
-                {{ form_errors(edit_form.text_template) }}
-            </div>
-        </div>
-    {% endif  %}
-    {{ form_rest(edit_form)}}
+
+    {{ form_widget(edit_form)}}
 
     <div class="form-actions">
         <button type="submit" class="btn btn-primary js_update">{{ "bfos.settings.button.update.label"|trans }}</button>
     </div>
 </form>
+</p>
 
 <style type="text/css">
     #bfos_settingsmanagementbundle_setting_type_text_template,
@@ -65,4 +48,4 @@
     .page-header-setting h2 {
         float: left;
     }
-    </style>
+</style>

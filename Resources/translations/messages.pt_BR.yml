@@ -27,6 +27,7 @@ bfos:
             go_to_list.label: "Voltar para lista"
             show.label: "Detalhes"
             edit.label: "Editar"
+            dev_edit.label: "Configurações"
         messages:
             alert:
                 empty_entity: "Nenhum configuração foi encontrado."

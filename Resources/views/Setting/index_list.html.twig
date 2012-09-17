@@ -8,8 +8,7 @@
             {% endif %}
         </a></td>
         <td>
-            {% if entity.type == 'text' %}{% if entity.value %}{{ entity.value.value }} {% endif %}{% endif %}
-            {% if entity.type == 'email_template' %}{% if entity.value %}{{ entity.value.text_template }} {% endif %}{% endif %}
+            {% include 'BFOSSettingsManagementBundle:Setting:list_' ~ entity.type ~ '.html.twig' with {'value':entity.value} %}
         </td>
         <td>{{ entity.type }}</td>
         <td>
@@ -17,9 +16,13 @@
                 {{ role }} <br />
             {%  endfor %}
         </td>
-        <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
         <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif%}</td>
         <td>
+            {% if is_granted(dev_role) %}
+            <a href="{{ url('bfos_settings_dev_edit', { 'id': entity.id }) }}" class="js_dev_edit">
+                <i class="icon-cog"></i> {{ "bfos.settings.link.dev_edit.label"|trans }}
+            </a>
+            {% endif %}
             <a href="{{ url('bfos_settings_show', { 'id': entity.id }) }}" class="js_show">
                 <i class="icon-info-sign"></i> {{ "bfos.settings.link.show.label"|trans }}
             </a>

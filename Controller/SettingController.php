@@ -38,6 +38,7 @@ class SettingController extends Controller
 
         $view_vars = array(
             'entities' => $entities,
+            'dev_role' => $this->container->getParameter('bfos_settings.developer_role')
         );
         if($this->getRequest()->query->has('nojs') && $this->getRequest()->query->get('nojs')){
             return $this->render("BFOSSettingsManagementBundle:Setting:index_table.html.twig", $view_vars);
@@ -87,11 +88,9 @@ class SettingController extends Controller
             return new Response('', 403);
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         );
     }
 
@@ -119,12 +118,10 @@ class SettingController extends Controller
         $setting_form = new SettingForm();
         $setting_form->setSetting($entity);
         $editForm = $this->createForm(new SettingFormType($this->container), $setting_form);
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -154,20 +151,19 @@ class SettingController extends Controller
             return new Response('', 403);
         }
 
+        $validationGroup = $entity->getType();
         $setting_form = new SettingForm();
         $setting_form->setSetting($entity);
-        $editForm   = $this->createForm(new SettingFormType($this->container), $setting_form);
+        $editForm   = $this->createForm(new SettingFormType($this->container), $setting_form, array('validation_groups' => array($validationGroup)));
 
 
         $editForm->bind($request);
-
-        $deleteForm = $this->createDeleteForm($id);
 
         $view_vars =  array(
             'entity'      => $entity,
             'entities'    => $entities,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'dev_role' => $this->container->getParameter('bfos_settings.developer_role')
         );
 
         if ($editForm->isValid()) {
@@ -183,57 +179,7 @@ class SettingController extends Controller
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
-    /**
-     * Deletes a Setting entity.
-     *
-     * @Route("/{id}/delete", name="bfos_settings_delete")
-     * @Method("post")
-     */
-    public function deleteAction($id)
-    {
-        $request = $this->getRequest();
-
-        if(!$request->isXmlHttpRequest()) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Invalid Request'));
-        }
-        $form = $this->createDeleteForm($id);
-
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('BFOSSettingsManagementBundle:Setting')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException($this->get('translator')->trans('Unable to find Setting entity'));
-            }
-
-            if(!$this->grantedEditing($entity)){
-                return new Response('', 403);
-            }
-
-            $em->remove($entity);
-            $em->flush();
-
-            $this->get('session')->setFlash('notice', $this->get('translator')->trans('Record was removed successfully.'));
-
-            $entities = $em->getRepository('BFOSSettingsManagementBundle:Setting')->findAll();
-
-            return new Response($this->renderView('BFOSSettingsManagementBundle:Setting:index.html.twig', array('entities'=>$entities)), 205);
-        }
-
-        return $this->redirect($this->generateUrl('bfos_settings'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-            ;
-    }
 }

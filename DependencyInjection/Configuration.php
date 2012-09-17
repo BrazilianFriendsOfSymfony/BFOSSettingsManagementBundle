@@ -20,9 +20,15 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('bfos_settings_management');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('security')
+                    ->children()
+                        ->scalarNode('admin_role')->end()
+                        ->scalarNode('super_admin_role')->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

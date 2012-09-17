@@ -19,6 +19,7 @@
     function bfos_settings_management_http_post_from_link(event, anchor, class_form) {
         event.preventDefault();
         var form = $('#bfos_settings_content_wrapper .'+class_form);
+        form.trigger('prePost');
         var url  = form.attr('action');
         var dados = form.serialize();
         $.post(url, dados)
@@ -36,6 +37,7 @@
 
         bfos_settings_management_unbind();
         $('#bfos_settings_content_wrapper .js_new').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
+        $('#bfos_settings_content_wrapper .js_dev_edit').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
         $('#bfos_settings_content_wrapper .js_edit').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
         $('#bfos_settings_content_wrapper .js_show').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
         $('#bfos_settings_content_wrapper .js_go_to_list').bind('click', function(e) { bfos_settings_management_http_get_from_link(e, this); });
@@ -43,17 +45,20 @@
         $('#bfos_settings_content_wrapper .js_create').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_create_form'); });
         $('#bfos_settings_content_wrapper .js_update').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_update_form'); });
         $('#bfos_settings_content_wrapper .js_delete').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_delete_form'); });
+        $('#bfos_settings_content_wrapper .js_dev_update').bind('click', function(e) { bfos_settings_management_http_post_from_link(e, this, 'js_update_form'); });
 
     }
 
     function bfos_settings_management_unbind() {
 
         $('#bfos_settings_content_wrapper .js_new').unbind('click');
+        $('#bfos_settings_content_wrapper .js_dev_edit').unbind('click');
         $('#bfos_settings_content_wrapper .js_edit').unbind('click');
         $('#bfos_settings_content_wrapper .js_show').unbind('click');
         $('#bfos_settings_content_wrapper .js_go_to_list').unbind('click');
 
         $('#bfos_settings_content_wrapper .js_create').unbind('click');
+        $('#bfos_settings_content_wrapper .js_dev_update').unbind('click');
         $('#bfos_settings_content_wrapper .js_update').unbind('click');
         $('#bfos_settings_content_wrapper .js_delete').unbind('click');
 

@@ -45,6 +45,20 @@ class SettingForm
      */
     private $text_template;
 
+    /**
+     * @var string $emailName
+     *
+     *  @Assert\MinLength(limit=2, groups={"email_address"})
+     */
+    private $emailName;
+
+    /**
+     * @var string $emailAddress
+     *
+     * @Assert\NotBlank(groups={"email_address"})
+     */
+    private $emailAddress;
+
 
     /**
      * @param string $html_template
@@ -145,10 +159,12 @@ class SettingForm
     public function updateSetting(){
         $this->setting->setName($this->getName());
         $this->setting->setType($this->getType());
-        if($this->getType()!='email_template'){
-            $this->setting->setValue(array('value'=>$this->getValue()));
-        } else {
+        if($this->getType()=='email_template'){
             $this->setting->setValue(array('text_template'=>$this->getTextTemplate(), 'html_template'=>$this->getHtmlTemplate()));
+        } elseif($this->getType()=='email_address'){
+            $this->setting->setValue(array('email_name'=>$this->getEmailName(), 'email_address'=>$this->getEmailAddress()));
+        } else {
+            $this->setting->setValue(array('value'=>$this->getValue()));
         }
     }
 
@@ -161,9 +177,23 @@ class SettingForm
 
         $this->setId($setting->getId());
         $value = $setting->getValue();
+
+        // EMAIL TEMPLATE
         if($setting->getType()=='email_template' && !is_null($value) ){
+
             $this->setTextTemplate($value['text_template']);
             $this->setHtmlTemplate($value['html_template']);
+
+        // EMAIL ADDRESS
+        } elseif($setting->getType()=='email_address' && !is_null($value) ){
+            if(isset($value['email_name'])){
+                $this->setEmailName($value['email_name']);
+            }
+            if(isset($value['email_address'])){
+                $this->setEmailAddress($value['email_address']);
+            }
+
+        // OTHER
         } else {
             $this->setValue($value['value']);
         }
@@ -179,4 +209,40 @@ class SettingForm
     {
         return $this->setting;
     }
+
+    /**
+     * @param string $emailAddress
+     */
+    public function setEmailAddress($emailAddress)
+    {
+        $this->emailAddress = $emailAddress;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailAddress()
+    {
+        return $this->emailAddress;
+    }
+
+    /**
+     * @param string $emailName
+     */
+    public function setEmailName($emailName)
+    {
+        $this->emailName = $emailName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailName()
+    {
+        return $this->emailName;
+    }
+
+
 }

@@ -48,8 +48,8 @@ class SettingFormSubscriber implements EventSubscriberInterface
         } else if($data->getType() == 'boolean'){
             $form->add($this->factory->createNamed('value', 'checkbox'));
         } else if($data->getType() == 'email_address'){
-            $form->add($this->factory->createNamed('name', 'text'));
-            $form->add($this->factory->createNamed('email', 'text'));
+            $form->add($this->factory->createNamed('emailName', 'text'));
+            $form->add($this->factory->createNamed('emailAddress', 'text'));
         } else if($data->getType() == 'html'){
             $form->add($this->factory->createNamed('value', 'textarea'));
         } else {

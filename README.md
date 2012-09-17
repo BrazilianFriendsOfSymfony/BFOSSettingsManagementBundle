@@ -3,6 +3,13 @@ BFOSSettingsManagementBundle
 
 Symfony2 bundle to easily manage your application settings.
 
+Requirements
+------------
+
+    - jQuery
+    - RequireJS
+    - ckEditor
+
 Installing
 ----------
 
@@ -37,3 +44,11 @@ Add BFOSSettingsManagementBundle in your composer.json:
 
     bfos_settings_management:
         resource: "@BFOSSettingsManagementBundle/Resources/config/routing.yml"
+
+Configuration
+-------------
+
+    bfos_settings_management:
+        security:
+            admin_role: ROLE_ADMIN
+            super_admin_role: ROLE_SUPER_ADMIN

@@ -27,6 +27,7 @@ bfos:
             go_to_list.label: "Go to list"
             show.label: "Details"
             edit.label: "Edit"
+            dev_edit.label: "Settings"
         messages:
             alert:
                 empty_entity: "No setting was found."

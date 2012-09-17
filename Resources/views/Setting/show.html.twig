@@ -11,12 +11,6 @@
                 <i class="icon-edit"></i> {{ "bfos.settings.link.edit.label"|trans }}
             </a>
         </div>
-        <div class="btn-group setting">
-            <form action="{{ path('bfos_settings_delete', { 'id': entity.id }) }}" method="post" class="js_delete_form" id="form-delete-setting-show">
-                {{ form_widget(delete_form) }}
-                <button type="submit" class="btn btn-danger js_delete"><i class="icon-trash icon-white"></i> {{ "bfos.settings.button.delete.label"|trans }}</button>
-            </form>
-        </div>
     </div>
 </div>
 

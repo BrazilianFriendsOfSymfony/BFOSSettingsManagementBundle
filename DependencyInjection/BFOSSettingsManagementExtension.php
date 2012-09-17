@@ -22,6 +22,19 @@ class BFOSSettingsManagementExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $admin_role = 'ROLE_ADMIN';
+        if(isset($config['security']['admin_role'])){
+            $admin_role = $config['security']['admin_role'];
+        }
+        $container->setParameter('bfos_settings.admin_role', $admin_role);
+
+        $super_dev_role = 'ROLE_SUPER_ADMIN';
+        if(isset($config['security']['developer_role'])){
+            $super_dev_role = $config['security']['developer_role'];
+        }
+        $container->setParameter('bfos_settings.developer_role', $super_dev_role);
+
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
     }

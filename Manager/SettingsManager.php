@@ -13,6 +13,12 @@ class SettingsManager
         'email_address',
         'boolean'
     );
+    static public $allowedTypesForChoices = array(
+        'text' => 'Text',
+        'email_template' => 'E-mail template',
+        'email_address' => 'E-mail address',
+        'boolean' => 'Yes/No'
+    );
 
     private $container;
 
