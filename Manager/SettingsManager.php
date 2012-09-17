@@ -11,13 +11,17 @@ class SettingsManager
         'text',
         'email_template',
         'email_address',
-        'boolean'
+        'boolean',
+        'integer',
+        'number'
     );
     static public $allowedTypesForChoices = array(
         'text' => 'Text',
         'email_template' => 'E-mail template',
         'email_address' => 'E-mail address',
-        'boolean' => 'Yes/No'
+        'boolean' => 'Yes/No',
+        'integer' => 'Integer',
+        'number' => 'Number'
     );
 
     private $container;

@@ -52,6 +52,10 @@ class SettingFormSubscriber implements EventSubscriberInterface
             $form->add($this->factory->createNamed('emailAddress', 'text'));
         } else if($data->getType() == 'html'){
             $form->add($this->factory->createNamed('value', 'textarea'));
+        } else if($data->getType() == 'integer'){
+            $form->add($this->factory->createNamed('value', 'integer'));
+        } else if($data->getType() == 'number'){
+            $form->add($this->factory->createNamed('value', 'number'));
         } else {
             $form->add($this->factory->createNamed('value', 'text', null,  array('required'=>false)));
 

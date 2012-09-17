@@ -1,1 +1,3 @@
-{{ value.value }}
+{% if value.value is defined %}
+    {{ value.value }}
+{% endif %}
