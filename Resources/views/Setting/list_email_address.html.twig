@@ -1,0 +1,7 @@
+{% if value.email_name is defined and value.email_address is defined %}
+    {{ value.email_name }} ({{ value.email_address }})
+{% elseif value.email_address is defined %}
+    {{ value.email_address }}
+{% else %}
+    {{ value }}
+{% endif %}
