@@ -13,7 +13,8 @@ class SettingsManager
         'email_address',
         'boolean',
         'integer',
-        'number'
+        'number',
+        'html'
     );
     static public $allowedTypesForChoices = array(
         'text' => 'Text',
@@ -21,7 +22,8 @@ class SettingsManager
         'email_address' => 'E-mail address',
         'boolean' => 'Yes/No',
         'integer' => 'Integer',
-        'number' => 'Number'
+        'number' => 'Number',
+        'html' => 'HTML Excerpt'
     );
 
     private $container;
@@ -58,6 +60,8 @@ class SettingsManager
         }
         if($granted_editing_for) {
             $setting->setGrantedEditingFor($granted_editing_for);
+        } else {
+            $setting->setGrantedEditingFor(array('ROLE_ADMIN'));
         }
 
         $em->persist($setting);
@@ -111,6 +115,8 @@ class SettingsManager
         }
         if($granted_editing_for) {
             $esetting->setGrantedEditingFor($granted_editing_for);
+        } else {
+            $esetting->setGrantedEditingFor(array('ROLE_ADMIN'));
         }
         $esetting->setLabel($label);
         $esetting->setHelp($help);
@@ -204,10 +210,20 @@ class SettingsManager
 
         if($entity->getValue()!==null) {
             $v = $entity->getValue();
-            if($entity->getType()=='text'){
-                return $v['value'];
+            if(in_array($entity->getType(), array('email_template','email_address'))){
+                return $v;
+            } elseif($entity->getType()=='integer'){
+                return (int) $v['value'];
+            } elseif($entity->getType()=='number'){
+                return (float) $v['value'];
+            } else if($entity->getType()=='boolean'){
+                if($v['value']){
+                    return true;
+                } else {
+                    return false;
+                }
             }
-            return $v;
+            return $v['value'];
         } else {
             return $default;
         }

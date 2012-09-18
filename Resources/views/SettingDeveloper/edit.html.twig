@@ -45,7 +45,6 @@
             var id = 'bfos_settings_setting_configuration_form_type_help';
 
             $('form.js_update_form').bind('prePost', function(e){
-                console.info('antes do post');
                 $('#'+id).val(window.CKEDITOR.instances[id].getData());
             });
 

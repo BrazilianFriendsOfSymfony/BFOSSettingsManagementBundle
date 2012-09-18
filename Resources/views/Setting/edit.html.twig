@@ -49,3 +49,4 @@
         float: left;
     }
 </style>
+{% include 'BFOSSettingsManagementBundle:Setting:edit_' ~ entity.type ~ '.html.twig' with {'value':entity.value} %}
