@@ -208,7 +208,7 @@ class SettingsManager
          */
         $entity = $rsetting->findOneBy(array('name'=>$name));
 
-        if($entity->getValue()!==null) {
+        if($entity && $entity->getValue()!==null) {
             $v = $entity->getValue();
             if(in_array($entity->getType(), array('email_template','email_address'))){
                 return $v;
