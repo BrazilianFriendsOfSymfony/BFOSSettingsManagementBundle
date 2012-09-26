@@ -6,7 +6,12 @@
             {% else %}
                 {{ entity.name }}
             {% endif %}
-        </a></td>
+        </a>
+            {% if is_granted(dev_role) %}
+                <br>
+                <small>{{ entity.name }}</small>
+            {% endif %}
+        </td>
         <td>
             {% include 'BFOSSettingsManagementBundle:Setting:list_' ~ entity.type ~ '.html.twig' with {'value':entity.value} %}
         </td>
