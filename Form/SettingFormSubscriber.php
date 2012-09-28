@@ -45,6 +45,14 @@ class SettingFormSubscriber implements EventSubscriberInterface
         if($data->getType() == 'email_template'){
             $form->add($this->factory->createNamed('html_template', 'textarea'));
             $form->add($this->factory->createNamed('text_template', 'textarea'));
+        } else if($data->getType() == 'email_notification'){
+            $form->add($this->factory->createNamed('from_name', 'text'));
+            $form->add($this->factory->createNamed('from_email', 'text'));
+            $form->add($this->factory->createNamed('to_name', 'text'));
+            $form->add($this->factory->createNamed('to_email', 'text'));
+            $form->add($this->factory->createNamed('subject', 'text'));
+            $form->add($this->factory->createNamed('html_template', 'textarea'));
+            $form->add($this->factory->createNamed('text_template', 'textarea'));
         } else if($data->getType() == 'boolean'){
             $form->add($this->factory->createNamed('value', 'checkbox'));
         } else if($data->getType() == 'email_address'){

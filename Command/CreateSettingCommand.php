@@ -20,7 +20,7 @@ class CreateSettingCommand extends ContainerAwareCommand
                 new InputArgument('name', InputArgument::REQUIRED, 'The setting name'),
                 new InputArgument('type', InputArgument::REQUIRED, 'The setting type'),
                 new InputOption('value', null, InputOption::VALUE_OPTIONAL, 'Set the setting value'),
-                new InputOption('roles', null, InputOption::VALUE_OPTIONAL, 'Set the setting roles', 'ROLE_USER'),
+                new InputOption('roles', null, InputOption::VALUE_OPTIONAL, 'Set the setting roles', 'ROLE_ADMIN'),
                 new InputOption('label', null, InputOption::VALUE_OPTIONAL, 'Set the setting label text. Used as the setting name for the user.'),
                 new InputOption('helpText', null, InputOption::VALUE_OPTIONAL, 'Set the setting help text.'),
         ))

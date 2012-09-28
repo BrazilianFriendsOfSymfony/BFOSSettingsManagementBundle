@@ -1,0 +1,30 @@
+<table class="table table-condensed">
+    <tr>
+        <th>{{ 'From Name'|trans }}</th>
+        <td>{{ value.from_name }}</td>
+    </tr>
+    <tr>
+        <th>{{ 'From E-mail'|trans }}</th>
+        <td>{{ value.from_email }}</td>
+    </tr>
+    <tr>
+        <th>{{ 'To Name'|trans }}</th>
+        <td>{{ value.to_name }}</td>
+    </tr>
+    <tr>
+        <th>{{ 'To E-mail'|trans }}</th>
+        <td>{{ value.to_email }}</td>
+    </tr>
+    <tr>
+        <th>{{ 'Subject'|trans }}</th>
+        <td>{{ value.subject }}</td>
+    </tr>
+    <tr>
+        <th>{{ 'HTML Template'|trans }}</th>
+        <td>{{ value.html_template|raw }}</td>
+    </tr>
+    <tr>
+        <th>{{ 'Text Template'|trans }}</th>
+        <td>{{ value.text_template|nl2br }}</td>
+    </tr>
+</table>
