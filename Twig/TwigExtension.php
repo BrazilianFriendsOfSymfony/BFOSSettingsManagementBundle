@@ -62,11 +62,11 @@ class TwigExtension extends \Twig_Extension
         $form_view = $form
             ->add('id', 'hidden')
             ->getForm()->createView();
-        return $this->env->render('DuoBaseAdminBundle:TwigExtension:form_delete.html.twig', array('form' => $form_view, 'url_action' => $url_action, 'form_id' => $form_id));
+        return $this->env->render('DuoAdminBundle:TwigExtension:form_delete.html.twig', array('form' => $form_view, 'url_action' => $url_action, 'form_id' => $form_id));
     }
 
     public function deleteLink($id, $url_action = null, $form_id_prefix = 'form_delete_'){
-        return $this->env->render('DuoBaseAdminBundle:TwigExtension:link_delete.html.twig', array('id' => $id, 'url_action' => $url_action, 'form_id_prefix' => $form_id_prefix));
+        return $this->env->render('DuoAdminBundle:TwigExtension:link_delete.html.twig', array('id' => $id, 'url_action' => $url_action, 'form_id_prefix' => $form_id_prefix));
     }
 
     private function getQueryStringArray($url){
