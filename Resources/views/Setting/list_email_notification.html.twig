@@ -1,0 +1,5 @@
+{% if value.text_template is defined and value.text_template|length > 0 %}
+    {{ value.text_template }}
+{% else %}
+    {{ value }}
+{% endif %}

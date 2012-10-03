@@ -14,7 +14,8 @@ class SettingsManager
         'boolean',
         'integer',
         'number',
-        'html'
+        'html',
+        'email_notification'
     );
     static public $allowedTypesForChoices = array(
         'text' => 'Text',
@@ -23,7 +24,8 @@ class SettingsManager
         'boolean' => 'Yes/No',
         'integer' => 'Integer',
         'number' => 'Number',
-        'html' => 'HTML Excerpt'
+        'html' => 'HTML Excerpt',
+        'email_notification' => 'E-mail notification'
     );
 
     private $container;
@@ -210,7 +212,7 @@ class SettingsManager
 
         if($entity && $entity->getValue()!==null) {
             $v = $entity->getValue();
-            if(in_array($entity->getType(), array('email_template','email_address'))){
+            if(in_array($entity->getType(), array('email_template','email_address', 'email_notification'))){
                 return $v;
             } elseif($entity->getType()=='integer'){
                 return (int) $v['value'];
