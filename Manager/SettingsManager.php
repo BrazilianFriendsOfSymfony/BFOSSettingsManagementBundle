@@ -30,6 +30,13 @@ class SettingsManager
 
     private $container;
 
+    /**
+     * Simple cache.
+     *
+     * @var array $cache
+     */
+    private $cache;
+
     function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
         $this->container = $container;
@@ -197,21 +204,28 @@ class SettingsManager
      */
     public function getValue($name, $default = null)
     {
-        /**
-         * @var \Doctrine\ORM\EntityManager $em
-         */
-        $em = $this->container->get('doctrine')->getEntityManager();
-        /**
-         * @var EntityRepository $rsetting
-         */
-        $rsetting = $em->getRepository('BFOSSettingsManagementBundle:Setting');
-        /**
-         * @var Setting $entity
-         */
-        $entity = $rsetting->findOneBy(array('name'=>$name));
+        if(!isset($this->cache[$name])){
 
-        if($entity && $entity->getValue()!==null) {
-            $v = $entity->getValue();
+            /**
+             * @var \Doctrine\ORM\EntityManager $em
+             */
+            $em = $this->container->get('doctrine')->getEntityManager();
+            /**
+             * @var EntityRepository $rsetting
+             */
+            $rsetting = $em->getRepository('BFOSSettingsManagementBundle:Setting');
+            /**
+             * @var Setting $entity
+             */
+            $entity = $rsetting->findOneBy(array('name'=>$name));
+            $this->cache[$name] = $entity;
+        } else {
+            $entity = $this->cache[$name];
+        }
+
+        $value = $entity->getValue();
+        if($entity && $value !==null) {
+            $v = $value;
             if(in_array($entity->getType(), array('email_template','email_address', 'email_notification'))){
                 return $v;
             } elseif($entity->getType()=='integer'){
