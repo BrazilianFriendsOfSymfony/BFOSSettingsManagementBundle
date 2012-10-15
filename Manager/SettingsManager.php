@@ -223,26 +223,30 @@ class SettingsManager
             $entity = $this->cache[$name];
         }
 
-        $value = $entity->getValue();
-        if($entity && $value !==null) {
-            $v = $value;
-            if(in_array($entity->getType(), array('email_template','email_address', 'email_notification'))){
-                return $v;
-            } elseif($entity->getType()=='integer'){
-                return (int) $v['value'];
-            } elseif($entity->getType()=='number'){
-                return (float) $v['value'];
-            } else if($entity->getType()=='boolean'){
-                if($v['value']){
-                    return true;
-                } else {
-                    return false;
+        if($entity){
+
+            $value = $entity->getValue();
+            if($entity && $value !==null) {
+                $v = $value;
+                if(in_array($entity->getType(), array('email_template','email_address', 'email_notification'))){
+                    return $v;
+                } elseif($entity->getType()=='integer'){
+                    return (int) $v['value'];
+                } elseif($entity->getType()=='number'){
+                    return (float) $v['value'];
+                } else if($entity->getType()=='boolean'){
+                    if($v['value']){
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
+                return $v['value'];
+            } else {
+                return $default;
             }
-            return $v['value'];
-        } else {
-            return $default;
         }
+        return null;
     }
 
     /**
