@@ -1,4 +1,4 @@
-{% if value.value %}
+{% if value.value is defined and value.value %}
     {{ 'yes'|trans }}
 {% else %}
     {{ 'no'|trans }}
