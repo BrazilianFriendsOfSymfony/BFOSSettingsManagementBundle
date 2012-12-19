@@ -45,7 +45,7 @@ EOT
 
         $name   = $input->getArgument('name');
         $type   = $input->getOption('type');
-        $value = (array) $input->getOption('value');
+        $value = array('value'=>$input->getOption('value'));
         $roles = $input->getOption('roles');
         if($roles) {
             $roles  = explode(',',$input->getOption('roles'));
