@@ -1,16 +1,18 @@
 <div class="page-header-setting">
 <h2 class="h2-title-setting">{{ "bfos.settings.edit.title"|trans }}</h2>
-    <div class="btn-toolbar">
-        <div class="btn-group">
-            <a class="btn js_go_to_list" href="{{ path('bfos_settings', {'nojs':1}) }}">
-                <i class="icon-arrow-left"></i> {{ "bfos.settings.link.go_to_list.label"|trans }}
-            </a>
-        </div>
-        <div class="btn-group">
-            <form action="{{ path('bfos_settings_dev_delete', { 'id': entity.id }) }}" method="post" class="js_delete_form">
-                {{ form_widget(delete_form) }}
-                <button type="submit" class="btn btn-danger js_delete"><i class="icon-trash icon-white"></i> {{ "bfos.settings.button.delete.label"|trans }}</button>
-            </form>
+    <div class="btn-header">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a class="btn js_go_to_list" href="{{ path('bfos_settings', {'nojs':1}) }}">
+                    <i class="icon-arrow-left"></i> {{ "bfos.settings.link.go_to_list.label"|trans }}
+                </a>
+            </div>
+            <div class="btn-group">
+                <form action="{{ path('bfos_settings_dev_delete', { 'id': entity.id }) }}" method="post" class="js_delete_form">
+                    {{ form_widget(delete_form) }}
+                    <button type="submit" class="btn btn-danger js_delete"><i class="icon-trash icon-white"></i> {{ "bfos.settings.button.delete.label"|trans }}</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -34,7 +36,15 @@
         max-height: 700px;
         min-height: 20px;
     }
-    .page-header-setting h2 {
+    .btn-header{
+        width: 100%;
+        float: left;
+    }
+    .btn-toolbar{
+        margin-top: -29px;
+        float: right;
+    }
+    .btn-group{
         float: left;
     }
 </style>
