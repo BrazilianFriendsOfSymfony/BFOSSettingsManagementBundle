@@ -26,6 +26,7 @@ bfos:
         link:
             go_to_list.label: "Voltar para lista"
             show.label: "Detalhes"
+            show.label.active: true
             edit.label: "Editar"
             dev_edit.label: "Configurações"
         messages:
