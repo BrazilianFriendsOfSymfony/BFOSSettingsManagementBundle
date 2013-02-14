@@ -13,7 +13,11 @@
             {% endif %}
         </td>
         <td>
-            {% include 'BFOSSettingsManagementBundle:Setting:list_' ~ entity.type ~ '.html.twig' with {'value':entity.value} %}
+            {% if entity.type != 'html' %}
+                {% include 'BFOSSettingsManagementBundle:Setting:list_' ~ entity.type ~ '.html.twig' with {'value':entity.value} %}
+            {% else  %}
+                -
+            {% endif %}
         </td>
         <td>{{ entity.type }}</td>
         <td>
