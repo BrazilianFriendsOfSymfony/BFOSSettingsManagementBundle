@@ -39,6 +39,17 @@ If You can not specify a value as the third arguments, it is just it let blank.
 
 The same thing can be do with the roles, fourth argument. And then this arguments can be specify at administration area.
 
+Supported types are
+
+text
+email_template
+email_address
+boolean
+integer
+number
+html
+email_notification
+
 EOT
         );
     }
