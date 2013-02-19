@@ -64,8 +64,17 @@ EOT
         $name   = $input->getArgument('name');
         $type   = $input->getArgument('type');
         $value = null;
-        if($type == 'text' && !$input->getOption('value')) {
+        if($type == 'text' && $input->getOption('value')) {
             $value['value'] = $input->getOption('value');
+        } elseif($type == 'boolean'){
+            if($input->getOption('value')){
+                $value['value'] = true;
+            } else {
+                $value['value'] = false;
+            }
+        } elseif($type == 'email_address' && $input->getOption('value')){
+            $value['email_name'] = "";
+            $value['email_address'] = $input->getOption('value');
         }
 
         $roles  = explode(',',$input->getOption('roles'));
