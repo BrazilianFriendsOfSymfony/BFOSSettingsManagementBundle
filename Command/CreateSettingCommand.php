@@ -76,7 +76,7 @@ EOT
             $label = $input->getOption('label');
         }
         if($input->getOption('helpText')){
-            $label = $input->getOption('helpText');
+            $help = $input->getOption('helpText');
         }
 
         if ($name && $type) {
