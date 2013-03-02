@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * BFOS\SettingsManagementBundle\Entity\Setting
  * BFOSSettingsManagementBundle:Setting
  *
- * @ORM\Table(name="bfos_settings",uniqueConstraints={@ORM\UniqueConstraint(name="name_unique_idx", columns={"name"})})
+ * @ORM\Table(name="bfos_settings",uniqueConstraints={@ORM\UniqueConstraint(name="bfos_settings_name_unique_idx", columns={"name"})})
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
