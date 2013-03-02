@@ -39,6 +39,17 @@ If You can not specify a value as the third arguments, it is just it let blank.
 
 The same thing can be do with the roles, fourth argument. And then this arguments can be specify at administration area.
 
+Supported types are
+
+text
+email_template
+email_address
+boolean
+integer
+number
+html
+email_notification
+
 EOT
         );
     }
@@ -53,8 +64,17 @@ EOT
         $name   = $input->getArgument('name');
         $type   = $input->getArgument('type');
         $value = null;
-        if($type == 'text' && !$input->getOption('value')) {
+        if($type == 'text' && $input->getOption('value')) {
             $value['value'] = $input->getOption('value');
+        } elseif($type == 'boolean'){
+            if($input->getOption('value')){
+                $value['value'] = true;
+            } else {
+                $value['value'] = false;
+            }
+        } elseif($type == 'email_address' && $input->getOption('value')){
+            $value['email_name'] = "";
+            $value['email_address'] = $input->getOption('value');
         }
 
         $roles  = explode(',',$input->getOption('roles'));
@@ -65,7 +85,7 @@ EOT
             $label = $input->getOption('label');
         }
         if($input->getOption('helpText')){
-            $label = $input->getOption('helpText');
+            $help = $input->getOption('helpText');
         }
 
         if ($name && $type) {
