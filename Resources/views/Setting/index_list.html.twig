@@ -26,18 +26,50 @@
             {%  endfor %}
         </td>
         <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif%}</td>
-        <td style="min-width: 65px;">
-            {% if is_granted(dev_role) %}
-            <a href="{{ url('bfos_settings_dev_edit', { 'id': entity.id }) }}" class="js_dev_edit mr-5" title="{{ "bfos.settings.link.dev_edit.label"|trans }}">
-                <i class="icon-cog"></i> {% if "bfos.settings.link.show.label.active"|trans == 'true' %}{{ "bfos.settings.link.dev_edit.label"|trans }}{% endif %}
-            </a>
-            {% endif %}
-            <a href="{{ url('bfos_settings_show', { 'id': entity.id }) }}" class="js_show mr-5" title="{{ "bfos.settings.link.show.label"|trans }}">
-                <i class="icon-info-sign"></i> {% if "bfos.settings.link.show.label.active"|trans == 'true' %}{{ "bfos.settings.link.show.label"|trans }}{% endif %}
-            </a>
-            <a href="{{ url('bfos_settings_edit', { 'id': entity.id }) }}" class="js_edit" title="{{ "bfos.settings.link.edit.label"|trans }}">
-                <i class="icon-edit"></i> {% if "bfos.settings.link.show.label.active"|trans == 'true' %}{{ "bfos.settings.link.edit.label"|trans }}{% endif %}
-            </a>
+        <td style="min-width: 77px;">
+
+            <ul class="nav nav-pills no-margin">
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"> Ações <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            {% if is_granted(dev_role) %}
+                                <a href="{{ url('bfos_settings_dev_edit', { 'id': entity.id }) }}" class="js_dev_edit mr-5" title="{{ "bfos.settings.link.dev_edit.label"|trans }}">
+                                    <i class="icon-cog"></i> {{ "bfos.settings.link.dev_edit.label"|trans }}
+                                </a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <a href="{{ url('bfos_settings_show', { 'id': entity.id }) }}" class="js_show mr-5" title="{{ "bfos.settings.link.show.label"|trans }}">
+                                <i class="icon-info-sign"></i> {{ "bfos.settings.link.show.label"|trans }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('bfos_settings_edit', { 'id': entity.id }) }}" class="js_edit" title="{{ "bfos.settings.link.edit.label"|trans }}">
+                                <i class="icon-edit"></i> {{ "bfos.settings.link.edit.label"|trans }}
+                            </a>
+                        </li>
+
+                        {#<li><a title="Detalhes" href="{{ path('duo_loja_forma_pagamento_admin_detalhes', {'id':entity.id}) }}"><i #}
+                                        {#class="icon-info-sign mr-5"></i> Detalhes</a></li>#}
+                        {#<li><a title="Editar" href="{{ path('duo_loja_forma_pagamento_admin_editar', {'id':entity.id}) }}"><i#}
+                                        {#class="icon-edit mr-5"></i> Editar</a></li>#}
+                    </ul>
+                </li>
+            </ul>
+
+            {#{% if is_granted(dev_role) %}#}
+            {#<a href="{{ url('bfos_settings_dev_edit', { 'id': entity.id }) }}" class="js_dev_edit mr-5" title="{{ "bfos.settings.link.dev_edit.label"|trans }}">#}
+                {#<i class="icon-cog"></i> {% if "bfos.settings.link.show.label.active"|trans == 'true' %}{{ "bfos.settings.link.dev_edit.label"|trans }}{% endif %}#}
+            {#</a>#}
+            {#{% endif %}#}
+            {#<a href="{{ url('bfos_settings_show', { 'id': entity.id }) }}" class="js_show mr-5" title="{{ "bfos.settings.link.show.label"|trans }}">#}
+                {#<i class="icon-info-sign"></i> {% if "bfos.settings.link.show.label.active"|trans == 'true' %}{{ "bfos.settings.link.show.label"|trans }}{% endif %}#}
+            {#</a>#}
+            {#<a href="{{ url('bfos_settings_edit', { 'id': entity.id }) }}" class="js_edit" title="{{ "bfos.settings.link.edit.label"|trans }}">#}
+                {#<i class="icon-edit"></i> {% if "bfos.settings.link.show.label.active"|trans == 'true' %}{{ "bfos.settings.link.edit.label"|trans }}{% endif %}#}
+            {#</a>#}
         </td>
     </tr>
 {% endfor %}

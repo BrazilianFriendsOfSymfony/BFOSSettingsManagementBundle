@@ -6,7 +6,9 @@ bfos:
             name.label: "Nome"
             type.label: "Tipo"
             value.label: "Valor"
+            label.label: "Título"
             granted_editing_for.label: "Edição concedida para"
+            help.label: "Ajuda"
             text_template.label: " Texto"
             html_template.label: "HTML"
         field:
@@ -16,10 +18,10 @@ bfos:
             granted_editing_for.label: "Edição concedida para"
             created_at.label:   "Creado em"
             updated_at.label:   "Atualizado em"
-            actions.label:      "Ações"
+            actions.label:      " "
         button:
             new.label: "Nova Configuração"
-            update.label: "Atualizar"
+            update.label: "Salvar"
             delete.label: "Apagar"
             save.label: "Salvar"
             save_and_add.label: "Salvar e adicionar outro"
@@ -34,11 +36,11 @@ bfos:
                 empty_entity: "Nenhum configuração foi encontrado."
                 js_error: "Ocorreu um erro."
         new:
-            title: "Nova Configuração"
+            title: "Nova configuração"
         edit:
-            title: "Editando Configuração"
+            title: "Editando configuração"
         show:
-            title: "Detalhes da Configuração"
+            title: "Detalhes da Ccnfiguração"
 
 Record was created successfully: O registro foi criado com sucesso.
 Record was updated successfully: O registro foi atualizado com sucesso.

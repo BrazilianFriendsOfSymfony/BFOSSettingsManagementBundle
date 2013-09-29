@@ -16,11 +16,11 @@ class SettingConfigurationFormType extends AbstractType
 
         $choices = SettingsManager::$allowedTypesForChoices;
         $builder
-            ->add('name', 'text')
-            ->add('type', 'choice', array('choices'=>$choices))
-            ->add('label', 'text', array('required'=>false))
-            ->add('grantedEditingFor', 'text', array('required'=>false))
-            ->add('help', 'textarea', array('required'=>false))
+            ->add('name', 'text', array('label'=>'bfos.settings.form.name.label'))
+            ->add('type', 'choice', array('choices'=>$choices, 'label'=>'bfos.settings.form.type.label'))
+            ->add('label', 'text', array('required'=>false, 'label'=>'bfos.settings.form.label.label'))
+            ->add('grantedEditingFor', 'text', array('required'=>false, 'label'=>'bfos.settings.form.granted_editing_for.label'))
+            ->add('help', 'textarea', array('required'=>false, 'label'=>'bfos.settings.form.help.label'))
         ;
 
     }
